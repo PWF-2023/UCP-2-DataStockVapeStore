@@ -9,6 +9,21 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
+                            @if (request('search'))
+                                <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                                    Search results for : {{ request('search') }}
+                                </h2>
+                            @endif
+                            <form class="flex items-center gap-2">
+                                <x-text-input id="search" name="search" type="text" input-type="submit" class="w-full"
+                                    placeholder="Search by name" value="{{ request('search') }}" autofocus />
+                                <x-primary-button type="submit">
+                                    {{ __('Search') }}
+                                </x-primary-button>
+                            </form>
+                        </div>
                     <div class="flex items-center justify-between">
                         <div>
                             <x-create-button href="{{ route('stock.create') }}" />
@@ -47,52 +62,22 @@
                                 </th>
                             </tr>
                         </thead>
-                        {{-- <tbody>
-                            @forelse ($todos as $todo)
+                            @forelse ($stocks as $stock)
                             <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                                    <a href="{{ route('todo.edit', $todo) }}" class="hover:underline">{{ $todo->title
+                                    <a href="{{ route('stock.edit', $stock) }}" class="hover:underline">{{ $stock->title
                                         }}</a>
                                 </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                                    @if ($todo->category_id)
-                                    {{ $todo->category->title }}
+                                    @if ($stock->category_id)
+                                    {{ $stock->category->title }}
                                     @endif
+                                </td>
+                                <td  scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                    {{ $stock->stock }}
                                 </td>
                                 <td class="hidden px-6 py-4 md:block">
-                                    @if ($todo->is_complete == false)
-                                    <span
-                                        class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                        Ongoing
-                                    </span>
-                                    @else
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                        Completed
-                                    </span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex space-x-3"> --}}
-                                        {{-- Action Here --}}
-                                        {{-- @if ($todo->is_complete == false)
-                                        <form action="{{ route('todo.complete', $todo) }}" method="Post">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="text-green-600 dark:text-green-400">
-                                                Complete
-                                            </button>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('todo.uncomplete', $todo) }}" method="Post">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="text-blue-600 dark:text-blue-400">
-                                                Uncomplete
-                                            </button>
-                                        </form>
-                                        @endif
-                                        <form action="{{ route('todo.destroy', $todo) }}" method="Post">
+                                        <form action="{{ route('stock.destroy', $stock) }}" method="Post">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 dark:text-red-400">
@@ -110,7 +95,7 @@
                                 </td>
                             </tr>
                             @endforelse
-                        </tbody> --}}
+                        </tbody>
                     </table>
                 </div>
                 {{-- @if ($todosCompleted > 1)
