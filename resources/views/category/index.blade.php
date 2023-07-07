@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Todo Category') }}
+            {{ __('Category') }}
         </h2>
     </x-slot>
 
@@ -38,25 +38,17 @@
                                     Title
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Todo
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($categories as $category)
+                            @forelse ($category as $category)
                             <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                                     <a href="{{ route('category.edit', $category) }}" class="hover:underline">
                                         {{$category->title}}
                                     </a>
-                                </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                                    <p class="hover:underline">
-                                        {{$category->todo->count()}}
-                                    </p>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex space-x-3">

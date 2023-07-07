@@ -18,29 +18,30 @@
                             @endif
                             <form class="flex items-center gap-2">
                                 <x-text-input id="search" name="search" type="text" input-type="submit" class="w-full"
-                                    placeholder="Search by name" value="{{ request('search') }}" autofocus />
+                                    placeholder="Search by product name" value="{{ request('search') }}" autofocus />
                                 <x-primary-button type="submit">
                                     {{ __('Search') }}
                                 </x-primary-button>
                             </form>
                         </div>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <x-create-button href="{{ route('stock.create') }}" />
-                        </div>
-                        <div>
-                            @if (session('success'))
-                            <p x-data="{ show: true }" x-show="show" x-transition
-                                x-init="setTimeout(() => show = false, 5000)"
-                                class="text-sm text-green-600 dark:text-green-400">{{ session('success') }}
-                            </p>
-                            @endif
-                            @if (session('danger'))
-                            <p x-data="{ show: true }" x-show="show" x-transition
-                                x-init="setTimeout(() => show = false, 5000)"
-                                class="text-sm text-red-600 dark:text-red-400">{{ session('danger') }}
-                            </p>
-                            @endif
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <x-create-button href="{{ route('stock.create') }}" />
+                            </div>
+                            <div>
+                                @if (session('success'))
+                                <p x-data="{ show: true }" x-show="show" x-transition
+                                    x-init="setTimeout(() => show = false, 5000)"
+                                    class="text-sm text-green-600 dark:text-green-400">{{ session('success') }}
+                                </p>
+                                @endif
+                                @if (session('danger'))
+                                <p x-data="{ show: true }" x-show="show" x-transition
+                                    x-init="setTimeout(() => show = false, 5000)"
+                                    class="text-sm text-red-600 dark:text-red-400">{{ session('danger') }}
+                                </p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,59 +10,70 @@ class StockController extends Controller
 {
     public function index()
     {
-        // $stocks = Stock::where('id', auth()->user()->id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
-        $stocks = Stock::all()->take(10);
+        $search = request('search');
+        if ($search) {
+            $stocks = Stock::where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+                ->orderBy('title')
+                ->where('id', '!=', '1')
+                ->paginate(10)
+                ->withQueryString();
+        } else {
+                $stocks = Stock::all()->take(10);
+        }
+
         return view('stock.index', compact('stocks'));
     }
 
-    public function store(Request $request, Stock $stock)
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|max:255',
-        ]);
-        $stock = Stock::create([
-            'title'   => ucfirst($request->title),
-            'user_id' => auth()->user()->id,
+            'stock' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        return redirect()->route('Stock.index')->with('success', 'Stock created successfully!');
+        Stock::create($request->all());
+
+        return redirect()->route('stock.index')->with('success', 'Stock created successfully!');
     }
 
     public function create()
     {
-        return view('stock.create');
+        $categories = Category::all();
+        return view('stock.create', compact('categories'));
     }
 
-    public function edit(Stock $stock)
+    public function edit($id)
     {
-        if(auth()->user()->id == $stock->user_id)
-        {
-            // dd($stock);
-            return view('stock.edit', compact('stock'));
-        }else{
-            // abort(403);
-            // abort(403, 'Not authorized')
-            return redirect()->route('stock.index')->with('danger','You are not authorized to edit this stock!');
-        }
+        $categories = Category::all();
+        $stock = Stock::findOrFail($id);
+
+        return view('stock.edit', compact('stock', 'categories'));
     }
 
     public function update(Request $request, Stock $stock)
     {
         $request->validate([
             'title' => 'required|max:255',
+            'stock' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+
         ]);
 
-        // Practical
-        // $stock->title = $request->title;
-        // $stock->save();
+        $stock->update($request->all());
 
-        // Elequent Way - Readble
-        $stock->update([
-            'title' => ucfirst($request->title),
-        ]);
         return redirect()->route('stock.index')->with('success', 'Stock update successfully');
 
+    }
+
+    public function destroy($id)
+    {
+        $stock = Stock::findOrFail($id);
+        $stock->delete();
+
+        // Redirect ke halaman yang diinginkan setelah berhasil menghapus data
+        return redirect()->route('stock.index')->with('success', 'Data Successfull deleted');
     }
 }
