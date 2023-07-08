@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -20,7 +21,9 @@ class StockController extends Controller
                 ->paginate(10)
                 ->withQueryString();
         } else {
-                $stocks = Stock::all()->take(10);
+                $stocks = Stock::where('id', '!=', '1')
+                ->orderBy('title')
+                ->paginate(10);
         }
 
         return view('stock.index', compact('stocks'));
@@ -28,10 +31,11 @@ class StockController extends Controller
 
     public function store(Request $request)
     {
+        $user->is_admin = true;
         $request->validate([
             'title' => 'required|max:255',
             'stock' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable',
         ]);
 
         Stock::create($request->all());
@@ -39,8 +43,9 @@ class StockController extends Controller
         return redirect()->route('stock.index')->with('success', 'Stock created successfully!');
     }
 
-    public function create()
+    public function create(User $user)
     {
+        $user->is_admin = true;
         $categories = Category::all();
         return view('stock.create', compact('categories'));
     }
@@ -58,7 +63,7 @@ class StockController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'stock' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable',
 
         ]);
 
@@ -73,7 +78,6 @@ class StockController extends Controller
         $stock = Stock::findOrFail($id);
         $stock->delete();
 
-        // Redirect ke halaman yang diinginkan setelah berhasil menghapus data
         return redirect()->route('stock.index')->with('success', 'Data Successfull deleted');
     }
 }

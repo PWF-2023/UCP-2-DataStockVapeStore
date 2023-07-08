@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('User') }}
+            {{ __('Employee') }}
         </h2>
     </x-slot>
 
@@ -55,7 +55,10 @@
                                     Email
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Todo
+                                    Phone
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Address
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
@@ -75,16 +78,11 @@
                                 <td class="hidden px-6 py-4 md:block">
                                     <p>{{ $user->email }}</p>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <p>{{ $user->todos->count() }}
-                                        <span>
-                                            <span class="text-green-600 dark:text-green-400">({{
-                                                $user->todos->where('is_complete', true)->count() }}</span>/
-                                            <span
-                                                class="text-blue-600 dark:text-blue-400">{{$user->todos->where('is_complete',
-                                                false)->count() }})</span>
-                                        </span>
-                                    </p>
+                                <td class="px-6 py-4 font-medium text-gray-900 md:whitespace-nowrap dark:text-white">
+                                    <p>{{ $user->phone }}</p>
+                                </td>
+                                <td class="hidden px-6 py-4 md:block">
+                                    <p>{{ $user->address }}</p>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex space-x-3">
@@ -130,11 +128,6 @@
                         </tbody>
                     </table>
                 </div>
-                @if ($users->hasPages())
-                <div class="p-6">
-                    {{ $users->links() }}
-                </div>
-                @endif
             </div>
         </div>
     </div>

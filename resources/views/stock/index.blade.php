@@ -6,11 +6,11 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white dark:bg-gray-800 sm:shadow-sm sm:rounded-lg">
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
+                        <div class="pt-2 pr-8 mb-6 md:w-1/2 2xl:w-1/3">
                             @if (request('search'))
                                 <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                                     Search results for : {{ request('search') }}
@@ -25,9 +25,11 @@
                             </form>
                         </div>
                         <div class="flex items-center justify-between">
+                            @if(auth()->user()->is_admin)
                             <div>
                                 <x-create-button href="{{ route('stock.create') }}" />
                             </div>
+                            @endif
                             <div>
                                 @if (session('success'))
                                 <p x-data="{ show: true }" x-show="show" x-transition
@@ -58,11 +60,14 @@
                                 <th scope="col" class="px-6 py-3">
                                     Stock
                                 </th>
+                                @if(auth()->user()->is_admin)
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
+                                @endif
                             </tr>
                         </thead>
+                        <tbody>
                             @forelse ($stocks as $stock)
                             <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
@@ -77,6 +82,7 @@
                                 <td  scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                                     {{ $stock->stock }}
                                 </td>
+                                @if(auth()->user()->is_admin)
                                 <td class="hidden px-6 py-4 md:block">
                                         <form action="{{ route('stock.destroy', $stock) }}" method="Post">
                                             @csrf
@@ -87,6 +93,7 @@
                                         </form>
                                     </div>
                                 </td>
+                                @endif
 
                             </tr>
                             @empty
@@ -99,17 +106,11 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- @if ($todosCompleted > 1)
-                <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('todo.deleteallcompleted') }}" method="Post">
-                        @csrf
-                        @method('delete')
-                        <x-primary-button>
-                            Delete All Completed Task
-                        </x-primary-button>
-                    </form>
+                @if ($stocks->hasPages())
+                <div class="p-6">
+                    {{ $stocks->links() }}
                 </div>
-                @endif --}}
+                @endif
             </div>
         </div>
     </div>

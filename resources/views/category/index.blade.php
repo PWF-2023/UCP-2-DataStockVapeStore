@@ -10,9 +10,11 @@
             <div class="overflow-hidden bg-white dark:bg-gray-800 sm:shadow-sm sm:rounded-lg">
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                     <div class="flex items-center justify-between">
+                        @if(auth()->user()->is_admin)
                         <div>
                             <x-create-button href="{{ route('category.create') }}" />
                         </div>
+                        @endif
                         <div>
                             @if (session('success'))
                             <p x-data="{ show: true }" x-show="show" x-transition
@@ -37,9 +39,11 @@
                                 <th scope="col" class="px-6 py-3">
                                     Title
                                 </th>
+                                @if(auth()->user()->is_admin)
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +54,7 @@
                                         {{$category->title}}
                                     </a>
                                 </td>
+                                @if(auth()->user()->is_admin)
                                 <td class="px-6 py-4">
                                     <div class="flex space-x-3">
                                         <form action="{{ route('category.destroy', $category) }}" method="Post">
@@ -61,6 +66,7 @@
                                         </form>
                                     </div>
                                 </td>
+                                @endif
 
                             </tr>
                             @empty
