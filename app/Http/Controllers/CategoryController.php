@@ -18,7 +18,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $user->is_admin = true;
         return view('category.create');
     }
 
@@ -27,7 +26,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $user->is_admin = true;
         $request->validate([
             'title' => 'required|max:255'
         ]);

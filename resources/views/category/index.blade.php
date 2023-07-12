@@ -36,8 +36,11 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 pl-11">
                                     Title
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Quantity
                                 </th>
                                 @if(auth()->user()->is_admin)
                                 <th scope="col" class="px-6 py-3">
@@ -54,8 +57,13 @@
                                         {{$category->title}}
                                     </a>
                                 </td>
+                                <td scope="row" class="px-6 py-4 whitespace-nowrap text-center">
+                                    <p class="text-green-600 dark:text-green-400">
+                                        {{ $category->stocks->count() }}
+                                    </p>
+                                </td>
                                 @if(auth()->user()->is_admin)
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 text-center">
                                     <div class="flex space-x-3">
                                         <form action="{{ route('category.destroy', $category) }}" method="Post">
                                             @csrf

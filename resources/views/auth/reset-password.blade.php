@@ -1,3 +1,11 @@
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<body class="font-sans antialiased" x-data="{ darkMode: false }" x-init="
+    if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      localStorage.setItem('darkMode', JSON.stringify(true));
+    }
+    darkMode = JSON.parse(localStorage.getItem('darkMode'));
+    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
+        <div x-bind:class="{'dark' : darkMode === true}" class="min-h-screen bg-gray-100 dark:bg-gray-900">
 <x-guest-layout>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
@@ -37,3 +45,4 @@
         </div>
     </form>
 </x-guest-layout>
+</body>

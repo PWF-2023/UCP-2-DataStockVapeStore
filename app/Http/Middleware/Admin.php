@@ -17,6 +17,8 @@ class Admin
     {
         if ($request->user() && $request->user()->is_admin) {
             return $next($request);
+        } else {
+            return response()->json(['error' => 'You do not have permission to delete data.'], 403);
         }
 
         return redirect('/dashboard');
