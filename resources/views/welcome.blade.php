@@ -113,7 +113,7 @@
         <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <!--Left Col-->
           <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center dark:text-white md:text-left">
-            <p class="uppercase tracking-loose w-full">Nahab</p>
+            <p class="uppercase tracking-loose w-full">Detss Vapehouse</p>
             <h1 class="my-4 text-5xl font-bold leading-tight">
                 let's check the stock!
             </h1>
@@ -157,10 +157,12 @@
             <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-xl mb-8" href="#">
 			About
 		</a>
-            <p class="mb-8">Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Vitae aliquet nec ullamcorper sit. Nullam eget felis eget nunc lobortis mattis aliquam. In est ante in nibh mauris.
-                Egestas congue quisque egestas diam in. Facilisi nullam vehicula ipsum a arcu. Nec nam aliquam sem et tortor consequat. Eget mi proin sed libero enim sed faucibus turpis in. Hac habitasse platea dictumst quisque. In aliquam sem fringilla ut. Gravida rutrum quisque non tellus orci ac auctor augue mauris.
-                Accumsan lacus vel facilisis volutpat est velit egestas dui id. At tempor commodo ullamcorper a. Volutpat commodo sed egestas egestas fringilla. Vitae congue eu consequat ac.
+            <p class="mb-8 text-justify">Detss Vapehouse is a leading destination for vaping enthusiasts, offering a wide range of premium products and exceptional customer service.
+                With its sleek and inviting atmosphere, the store provides a comfortable space for customers to explore and purchase top-notch vaping devices, e-liquids, and accessories.
+                Whether you're a beginner looking for a starter kit or an experienced vaper seeking advanced mods and tanks, Detss Vapehouse has you covered.
+                Their knowledgeable staff is always ready to assist customers in finding the perfect product to suit their needs and preferences.
+                Detss Vapehouse prides itself on staying up-to-date with the latest trends and innovations in the vaping industry, ensuring that customers have access to cutting-edge technology and flavors.
+                Whether you're seeking a smooth nicotine hit or a flavorful cloud-chasing experience, Detss Vapehouse is committed to providing a satisfying vaping journey for all customers who step through their doors.
             </p>
         </div>
 
